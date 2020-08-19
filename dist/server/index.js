@@ -53,8 +53,6 @@ if (!process.env.NEXTAUTH_URL) {
   _logger.default.warn('NEXTAUTH_URL', 'NEXTAUTH_URL environment variable not set');
 }
 
-require('ssl-root-cas/latest').inject();
-
 var _default = function () {
   var _ref = _asyncToGenerator(function* (req, res, userSuppliedOptions) {
     return new Promise(function () {
