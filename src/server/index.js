@@ -21,6 +21,8 @@ if (!process.env.NEXTAUTH_URL) {
   logger.warn('NEXTAUTH_URL', 'NEXTAUTH_URL environment variable not set')
 }
 
+require('ssl-root-cas/latest').inject()
+
 export default async (req, res, userSuppliedOptions) => {
   // To the best of my knowledge, we need to return a promise here
   // to avoid early termination of calls to the serverless function
