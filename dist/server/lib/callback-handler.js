@@ -100,11 +100,18 @@ var _default = function () {
             emailVerified: currentDate
           }));
           yield (0, _dispatchEvent.default)(events.updateUser, user);
-        } else {
+        } else if (isSignedIn) {
           var _currentDate = new Date();
 
-          user = yield createUser(_objectSpread(_objectSpread({}, profile), {}, {
+          user = yield updateUser(_objectSpread(_objectSpread(_objectSpread({}, user), profile), {}, {
             emailVerified: _currentDate
+          }));
+          yield (0, _dispatchEvent.default)(events.updateUser, user);
+        } else {
+          var _currentDate2 = new Date();
+
+          user = yield createUser(_objectSpread(_objectSpread({}, profile), {}, {
+            emailVerified: _currentDate2
           }));
           yield (0, _dispatchEvent.default)(events.createUser, user);
           isNewUser = true;

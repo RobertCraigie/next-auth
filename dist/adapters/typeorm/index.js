@@ -251,7 +251,32 @@ var Adapter = function Adapter(typeOrmConfig) {
         return _deleteUser.apply(this, arguments);
       }
 
-      function linkAccount(_x9, _x10, _x11, _x12, _x13, _x14, _x15) {
+      function getLinkedAccounts(_x9) {
+        return _getLinkedAccounts.apply(this, arguments);
+      }
+
+      function _getLinkedAccounts() {
+        _getLinkedAccounts = _asyncToGenerator(function* (userId) {
+          debug('GET_LINKED_ACCOUNTS', userId);
+
+          if (ObjectId && !(userId instanceof ObjectId)) {
+            userId = ObjectId(userId);
+          }
+
+          try {
+            return manager.find(Account, {
+              user_id: userId
+            });
+          } catch (error) {
+            _logger.default.error('GET_LINKED_ACCOUNTS_ERROR', error);
+
+            return Promise.reject(new Error('GET_LINKED_ACCOUNTS_ERROR', error));
+          }
+        });
+        return _getLinkedAccounts.apply(this, arguments);
+      }
+
+      function linkAccount(_x10, _x11, _x12, _x13, _x14, _x15, _x16) {
         return _linkAccount.apply(this, arguments);
       }
 
@@ -271,7 +296,7 @@ var Adapter = function Adapter(typeOrmConfig) {
         return _linkAccount.apply(this, arguments);
       }
 
-      function unlinkAccount(_x16, _x17, _x18) {
+      function unlinkAccount(_x17, _x18, _x19) {
         return _unlinkAccount.apply(this, arguments);
       }
 
@@ -283,7 +308,7 @@ var Adapter = function Adapter(typeOrmConfig) {
         return _unlinkAccount.apply(this, arguments);
       }
 
-      function createSession(_x19) {
+      function createSession(_x20) {
         return _createSession.apply(this, arguments);
       }
 
@@ -311,7 +336,7 @@ var Adapter = function Adapter(typeOrmConfig) {
         return _createSession.apply(this, arguments);
       }
 
-      function getSession(_x20) {
+      function getSession(_x21) {
         return _getSession.apply(this, arguments);
       }
 
@@ -338,7 +363,7 @@ var Adapter = function Adapter(typeOrmConfig) {
         return _getSession.apply(this, arguments);
       }
 
-      function updateSession(_x21, _x22) {
+      function updateSession(_x22, _x23) {
         return _updateSession.apply(this, arguments);
       }
 
@@ -375,7 +400,7 @@ var Adapter = function Adapter(typeOrmConfig) {
         return _updateSession.apply(this, arguments);
       }
 
-      function deleteSession(_x23) {
+      function deleteSession(_x24) {
         return _deleteSession.apply(this, arguments);
       }
 
@@ -396,7 +421,7 @@ var Adapter = function Adapter(typeOrmConfig) {
         return _deleteSession.apply(this, arguments);
       }
 
-      function createVerificationRequest(_x24, _x25, _x26, _x27, _x28) {
+      function createVerificationRequest(_x25, _x26, _x27, _x28, _x29) {
         return _createVerificationRequest.apply(this, arguments);
       }
 
@@ -440,7 +465,7 @@ var Adapter = function Adapter(typeOrmConfig) {
         return _createVerificationRequest.apply(this, arguments);
       }
 
-      function getVerificationRequest(_x29, _x30, _x31, _x32) {
+      function getVerificationRequest(_x30, _x31, _x32, _x33) {
         return _getVerificationRequest.apply(this, arguments);
       }
 
@@ -472,7 +497,7 @@ var Adapter = function Adapter(typeOrmConfig) {
         return _getVerificationRequest.apply(this, arguments);
       }
 
-      function deleteVerificationRequest(_x33, _x34, _x35, _x36) {
+      function deleteVerificationRequest(_x34, _x35, _x36, _x37) {
         return _deleteVerificationRequest.apply(this, arguments);
       }
 
@@ -501,6 +526,7 @@ var Adapter = function Adapter(typeOrmConfig) {
         getUserByProviderAccountId,
         updateUser,
         deleteUser,
+        getLinkedAccounts,
         linkAccount,
         unlinkAccount,
         createSession,

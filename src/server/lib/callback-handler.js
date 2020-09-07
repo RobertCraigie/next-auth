@@ -87,6 +87,12 @@ export default async (sessionToken, profile, providerAccount, options) => {
         const currentDate = new Date()
         user = await updateUser({ ...userByEmail, emailVerified: currentDate })
         await dispatchEvent(events.updateUser, user)
+      } else if (isSignedIn) {
+        // user is signed in with an account that is not linked to an email address
+        // as they have just verified their email address it is safe to update the signed in user's email address
+        const currentDate = new Date()
+        user = await updateUser({ ...user, ...profile, emailVerified: currentDate })
+        await dispatchEvent(events.updateUser, user)
       } else {
         // Create user account if there isn't one for the email address already
         const currentDate = new Date()

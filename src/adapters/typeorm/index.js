@@ -185,6 +185,21 @@ const Adapter = (typeOrmConfig, options = {}) => {
       return false
     }
 
+    async function getLinkedAccounts(userId) {
+      debug('GET_LINKED_ACCOUNTS', userId)
+
+      if (ObjectId && !(userId instanceof ObjectId)) {
+        userId = ObjectId(userId)
+      }
+
+      try {
+        return manager.find(Account, { user_id: userId })
+      } catch (error) {
+        logger.error('GET_LINKED_ACCOUNTS_ERROR', error)
+        return Promise.reject(new Error('GET_LINKED_ACCOUNTS_ERROR', error))
+      }
+    }
+
     async function linkAccount (userId, providerId, providerType, providerAccountId, refreshToken, accessToken, accessTokenExpires) {
       debug('LINK_ACCOUNT', userId, providerId, providerType, providerAccountId, refreshToken, accessToken, accessTokenExpires)
       try {
@@ -361,6 +376,7 @@ const Adapter = (typeOrmConfig, options = {}) => {
       getUserByProviderAccountId,
       updateUser,
       deleteUser,
+      getLinkedAccounts,
       linkAccount,
       unlinkAccount,
       createSession,
